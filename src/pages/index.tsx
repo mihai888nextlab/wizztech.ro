@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         className="fixed right-0 bottom-0 min-w-screen min-h-screen z-10 object-cover"
       ></video>
       <div className="fixed bg-black bg-opacity-50 w-full h-screen flex items-center justify-center flex-col z-20">
-        <img src="text.png" alt="" className="h-6" />
+        <Image width={307.66} height={41.5} src="/text.png" alt="" />
         <h1 className="text-white font-bold text-5xl">COMING SOON</h1>
         <p className="text-white text-xl">
           Made by{" "}
