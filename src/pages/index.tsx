@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <video
-        src="bg-video.webm"
+        src="bg-video-2.mp4"
         autoPlay
         muted
         loop
@@ -12,7 +12,9 @@ export default function Home() {
       ></video>
       <div className="fixed bg-black bg-opacity-50 w-full h-screen flex items-center justify-center flex-col z-20">
         <Image width={307.66} height={41.5} src="/text.png" alt="" />
-        <h1 className="text-white font-bold text-5xl">COMING SOON</h1>
+        <h1 className="text-white font-bold text-5xl mt-5 mb-10">
+          COMING SOON
+        </h1>
         <p className="text-white text-xl">
           Made by{" "}
           <a
