@@ -1,14 +1,16 @@
 
-
 export default function Header(){
     return (
-        <header className="fixed top-0 right-0 left-0 h-[100px] bg-purple flex items-center justify-center">
-            <nav className="w-[1400px] h-full grid grid-cols-2 items-center">
-                <div>
+        <header className="fixed top-0 right-0 left-0 h-[100px] bg-black flex items-center justify-center">
+            <nav className="w-[1500px] h-full grid grid-cols-2 items-center">
+                <div className="flex items-center">
 
-                /* Wizztech Logo Img */
-                <h1 className="text-2xl">WizzTech</h1>
-
+                <a href="">
+                    <img src="/logo.jpg" className="h-[80px] mx-4"/>
+                </a>
+                <a href="">
+                    <h1 className="text-2xl">WizzTech</h1>
+                </a>
                 </div>
 
                 <div className="flex justify-end">

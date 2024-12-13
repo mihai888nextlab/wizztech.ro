@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <Header />
       <main>
-        <div className="bg-white">
+        <div className="bg-slate-200">
 
         </div>
       </main>
