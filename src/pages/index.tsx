@@ -1,16 +1,14 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/header";
-
 export default function Home() {
   return (
     <div>
-      <Header />
-      <main>
-        <div className="bg-slate-200">
-
-        </div>
-      </main>
-    </div>  
+      <video
+        src="/bg-video-2.mp4"
+        className="min-h-screen min-w-full object-cover fixed z-0 object-center"
+        autoPlay
+        loop
+        muted
+      ></video>
+      <main></main>
+    </div>
   );
 }
