@@ -1,9 +1,9 @@
 export default function Header() {
   return (
-    <header className="fixed top-0 right-0 left-0 h-[100px] flex items-center justify-center">
+    <header className="fixed top-0 right-0 left-0 h-[100px] flex items-center justify-center z-50">
       <nav className="w-[1500px] h-full grid grid-cols-2 items-center">
         <div>
-          <img src="logo.png" alt="" />
+          <img src="logo.jpg" alt="" />
         </div>
       </nav>
     </header>
