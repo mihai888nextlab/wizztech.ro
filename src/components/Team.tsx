@@ -11,17 +11,17 @@ export default function Team() {
               ["Co-Team Leader", "Team Leadership"],
             ].map(([title, role], idx) => (
               <div key={title + idx} className={"text-center " + (idx === 0 ? 'md:col-start-2' : 'md:col-start-3')}>
-                <div className="w-32 h-32 mx-auto mb-4 bg-purple-600/20 rounded-full overflow-hidden">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 bg-purple-600/20 rounded-full overflow-hidden">
                   <img src="/image.png" alt={String(title)} className="w-full h-full object-cover" />
                 </div>
-                <h4 className="font-semibold text-purple-400">{title}</h4>
+                <h4 className="font-semibold text-purple-400 text-lg">{title}</h4>
                 <p className="text-gray-400 text-sm">{role}</p>
               </div>
             ))}
           </div>
 
           {/* Second row: other leads */}
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               ["Hardware Lead", "Mechanical Design"],
               ["Software Lead", "AI & Automation"],
@@ -29,7 +29,7 @@ export default function Team() {
               ["Media Lead", "Photography & Social"],
             ].map(([title, role]) => (
               <div key={title} className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 bg-purple-600/20 rounded-full overflow-hidden">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 bg-purple-600/20 rounded-full overflow-hidden">
                   <img src="/image.png" alt={String(title)} className="w-full h-full object-cover" />
                 </div>
                 <h4 className="font-semibold text-purple-400">{title}</h4>

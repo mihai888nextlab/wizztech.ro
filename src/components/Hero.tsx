@@ -8,17 +8,17 @@ export default function Hero() {
             <img src="/logo.png" alt="WizzTech logo" className="w-20" />
           </div>
         </div>
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 flex items-center justify-center gap-4">
-          <img src="/text-logo.png" alt="WizzTech" className="w-56 md:w-80" />
-          <span className="text-4xl md:text-5xl font-semibold text-gray-200">Robotics</span>
+        <h1 className="text-4xl md:text-7xl font-bold mb-6 flex flex-col md:flex-row items-center justify-center gap-4">
+          <img src="/text-logo.png" alt="WizzTech" className="w-44 md:w-80 max-w-full" />
+          <span className="text-2xl md:text-5xl font-semibold text-gray-200">Robotics</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-8">Innovation Through Technology</p>
         <div className="tech-line max-w-md mx-auto mb-8" />
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 rounded-lg font-semibold text-white transition-all transform hover:scale-105">
+          <button className="px-6 sm:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 rounded-lg font-semibold text-white transition-all transform hover:scale-105 w-full sm:w-auto">
             Join Our Team
           </button>
-          <a href="#about" className="px-8 py-3 border border-purple-500/30 hover:bg-purple-500/20 rounded-lg font-semibold transition-all inline-flex items-center justify-center">Learn More</a>
+          <a href="#about" className="px-6 sm:px-8 py-3 border border-purple-500/30 hover:bg-purple-500/20 rounded-lg font-semibold transition-all inline-flex items-center justify-center w-full sm:w-auto">Learn More</a>
         </div>
       </div>
     </section>

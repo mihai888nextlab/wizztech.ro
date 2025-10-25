@@ -15,7 +15,7 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">© {new Date().getFullYear()} WizzTech Robotics. All rights reserved.</p>
           </div>
 
-          <div className="flex flex-col items-end gap-1 justify-center md:justify-end text-right">
+          <div className="flex flex-col items-center md:items-end gap-1 justify-center md:justify-end text-center md:text-right">
             <a
               href="https://github.com/crististg"
               aria-label="Cristi's GitHub"

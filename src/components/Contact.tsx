@@ -50,8 +50,8 @@ export default function Contact() {
     <section id="contact" className="py-20">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12 gradient-text">Get In Touch</h2>
-        <div className="max-w-2xl mx-auto">
-            <div className="bg-gray-800/50 rounded-xl p-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-0">
+      <div className="bg-gray-800/50 rounded-xl p-6 sm:p-8">
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
