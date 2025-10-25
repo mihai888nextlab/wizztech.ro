@@ -59,10 +59,18 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 60%, #facc15 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.accent-yellow {
+  color: #facc15;
+}
+
+.accent-outline-yellow {
+  box-shadow: 0 0 12px rgba(250,204,21,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
 .card-hover {
