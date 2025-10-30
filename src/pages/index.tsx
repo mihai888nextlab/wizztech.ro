@@ -1,30 +1,25 @@
-import Image from "next/image";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import Competitions from "../components/Competitions";
+import Team from "../components/Team";
+import Contact from "../components/Contact";
 
 export default function Home() {
   return (
-    <>
-      <video
-        src="bg-video-2.mp4"
-        autoPlay
-        muted
-        loop
-        className="fixed right-0 bottom-0 min-w-screen min-h-screen z-10 object-cover"
-      ></video>
-      <div className="fixed bg-black bg-opacity-50 w-full h-screen flex items-center justify-center flex-col z-20">
-        <Image width={307.66} height={41.5} src="/text.png" alt="" />
-        <h1 className="text-white font-bold text-5xl mt-5 mb-10">
-          COMING SOON
-        </h1>
-        <p className="text-white text-xl">
-          Made by{" "}
-          <a
-            href="https://devmgo.com/"
-            className="text-green-500 hover:underline"
-          >
-            devmgo.ro
-          </a>
-        </p>
-      </div>
-    </>
+    <div className="bg-gray-900 text-white overflow-x-hidden">
+      <Header />
+
+      <main className="pt-20">
+        <Hero />
+        <About />
+        <Competitions />
+        <Team />
+        <Contact />
+      </main>
+
+      <Footer />
+    </div>
   );
 }
