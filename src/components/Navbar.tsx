@@ -5,13 +5,10 @@ import { useEffect, useState } from 'react';
 
 const navLinks = [
   { href: '/', label: 'Acasă' },
-  { href: '/istorie', label: 'Istorie' },
   { href: '/echipa', label: 'Echipă' },
-  { href: '/premii', label: 'Premiile noastre' },
-  { href: '/evenimente', label: 'Evenimente' },
+  { href: '/activitate', label: 'Activitate' },
   { href: '/sponsori', label: 'Sponsori' },
-  { href: '/galerie', label: 'Galerie' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/sponsori#contact', label: 'Contact' },
 ];
 
 const socials = [

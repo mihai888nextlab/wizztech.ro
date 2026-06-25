@@ -31,22 +31,37 @@ export default function Footer() {
           <h4>NAVIGHEAZĂ</h4>
           <ul>
             <li><Link href="/">Acasă</Link></li>
-            <li><Link href="/istorie">Istorie</Link></li>
-            <li><Link href="/echipa">Membrii echipei</Link></li>
-            <li><Link href="/evenimente">Evenimente</Link></li>
+            <li><Link href="/#history">Istorie</Link></li>
+            <li><Link href="/#awards">Premii</Link></li>
+            <li><Link href="/echipa">Echipă</Link></li>
+            <li><Link href="/activitate">Evenimente & Galerie</Link></li>
             <li><Link href="/sponsori">Sponsori</Link></li>
-            <li><Link href="/galerie">Galerie</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/sponsori#contact">Contact</Link></li>
           </ul>
         </div>
         <div className="footer-contact">
           <h4>CONTACT</h4>
-          <p>📍 Calea Bogdăneștilor nr.32A, Timișoara</p>
-          <p>✉ wizztechtm@gmail.com</p>
-          <div className="scroll-top-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <p>
+            <svg className="footer-contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+            </svg>
+            Calea Bogdăneștilor nr.32A, Timișoara
+          </p>
+          <p>
+            <svg className="footer-contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            wizztechtm@gmail.com
+          </p>
+          <button
+            type="button"
+            className="scroll-top-indicator"
+            aria-label="Înapoi sus"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <span>SCROLL TOP</span>
             <div className="vertical-line"></div>
-          </div>
+          </button>
         </div>
       </div>
       <div className="footer-bottom">

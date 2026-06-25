@@ -26,9 +26,11 @@ export default function ParticleCanvas() {
         this.r = Math.random() * 1.5 + 0.4;
         this.speed = Math.random() * 0.4 + 0.1;
         this.dx = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.5 + 0.1;
-        const hue = Math.random() > 0.6 ? 280 : 260;
-        this.color = `hsla(${hue}, 100%, 70%, ${this.opacity})`;
+        this.opacity = Math.random() * 0.5 + 0.12;
+        // Mix violet (~275) and sky-blue (~200) particles to match the brand palette
+        const roll = Math.random();
+        const hue = roll > 0.62 ? 200 : roll > 0.3 ? 275 : 260;
+        this.color = `hsla(${hue}, 100%, 72%, ${this.opacity})`;
       }
       update() { this.y -= this.speed; this.x += this.dx; if (this.y < -5) this.reset(false); }
       draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill(); }
