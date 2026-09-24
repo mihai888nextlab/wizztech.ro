@@ -1,56 +1,97 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
+/**
+ * Ambient drifting motes in the brand palette.
+ *
+ * Purely decorative, so it bows out completely when the visitor asks for
+ * reduced motion, and it stops animating while the tab is hidden rather than
+ * burning frames in the background.
+ */
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d')!;
-    let W = (canvas.width = window.innerWidth);
-    let H = (canvas.height = window.innerHeight);
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.matches) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let raf = 0;
+
+    // Render at device resolution so the dots stay crisp, capped to keep the
+    // per-frame cost sane on high-DPI phones.
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+
+    type Mote = { x: number; y: number; r: number; speed: number; drift: number; color: string };
+
+    const spawn = (initial: boolean): Mote => {
+      const opacity = Math.random() * 0.45 + 0.12;
+      const roll = Math.random();
+      // violet ~275°, sky ~200°, indigo ~260° — mirrors the CSS palette
+      const hue = roll > 0.62 ? 200 : roll > 0.3 ? 275 : 260;
+      return {
+        x: Math.random() * width,
+        y: initial ? Math.random() * height : height + 10,
+        r: Math.random() * 1.5 + 0.4,
+        speed: Math.random() * 0.4 + 0.1,
+        drift: (Math.random() - 0.5) * 0.3,
+        color: `hsla(${hue}, 100%, 72%, ${opacity})`,
+      };
+    };
+
+    // Scale the count to the viewport so phones do less work than desktops
+    const count = Math.round(Math.min(52, Math.max(18, width / 26)));
+    let motes = Array.from({ length: count }, () => spawn(true));
 
     const onResize = () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      resize();
+      motes = motes.map((m) => (m.x > width || m.y > height ? spawn(true) : m));
     };
-    window.addEventListener('resize', onResize);
 
-    class Particle {
-      x = 0; y = 0; r = 0; speed = 0; dx = 0; opacity = 0; color = '';
-      constructor() { this.reset(true); }
-      reset(initial: boolean) {
-        this.x = Math.random() * W;
-        this.y = initial ? Math.random() * H : H + 10;
-        this.r = Math.random() * 1.5 + 0.4;
-        this.speed = Math.random() * 0.4 + 0.1;
-        this.dx = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.5 + 0.12;
-        // Mix violet (~275) and sky-blue (~200) particles to match the brand palette
-        const roll = Math.random();
-        const hue = roll > 0.62 ? 200 : roll > 0.3 ? 275 : 260;
-        this.color = `hsla(${hue}, 100%, 72%, ${this.opacity})`;
+    const frame = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (const m of motes) {
+        m.y -= m.speed;
+        m.x += m.drift;
+        if (m.y < -5) Object.assign(m, spawn(false));
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.fillStyle = m.color;
+        ctx.fill();
       }
-      update() { this.y -= this.speed; this.x += this.dx; if (this.y < -5) this.reset(false); }
-      draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill(); }
-    }
+      raf = requestAnimationFrame(frame);
+    };
 
-    const particles = Array.from({ length: 40 }, () => new Particle());
-    let raf: number;
+    const start = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      raf = requestAnimationFrame(animate);
-    }
-    animate();
+    const onVisibility = () => (document.hidden ? stop() : start());
+
+    start();
+    window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
+      stop();
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(raf);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 
-  return <canvas ref={canvasRef} id="particleCanvas" />;
+  return <canvas ref={canvasRef} id="particleCanvas" aria-hidden="true" />;
 }

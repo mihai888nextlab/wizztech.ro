@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Pre-consolidation pages, kept for reference only. The `_` prefix opts
+    // them out of routing, so they are dead code and not worth linting.
+    "src/app/_old-*/**",
   ]),
 ]);
 

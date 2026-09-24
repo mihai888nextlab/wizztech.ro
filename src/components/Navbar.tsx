@@ -1,82 +1,136 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { SOCIALS } from './SocialIcons';
 
-const navLinks = [
+const NAV_LINKS = [
   { href: '/', label: 'Acasă' },
   { href: '/echipa', label: 'Echipă' },
   { href: '/activitate', label: 'Activitate' },
   { href: '/sponsori', label: 'Sponsori' },
   { href: '/sponsori#contact', label: 'Contact' },
-];
-
-const socials = [
-  { href: 'https://instagram.com/wizztech.tm', src: 'https://cdn-icons-png.flaticon.com/512/2111/2111463.png', alt: 'Insta' },
-  { href: 'https://facebook.com/wizztechtm/', src: 'https://cdn-icons-png.flaticon.com/512/733/733547.png', alt: 'FB' },
-  { href: 'https://tiktok.com/@wizztech_tm', src: 'https://cdn-icons-png.flaticon.com/512/3046/3046121.png', alt: 'TikTok' },
-  { href: 'https://youtube.com/@wizztech2623', src: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png', alt: 'YT' },
-  { href: 'https://www.linkedin.com/company/wizztechtm/', src: 'https://cdn-icons-png.flaticon.com/512/174/174857.png', alt: 'LinkedIn' },
-];
+] as const;
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [lastPath, setLastPath] = useState(pathname);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
+  // Navigating (including via the back button) closes the drawer. Adjusting
+  // state during render is React's recommended alternative to a reset effect —
+  // it avoids the extra commit a setState-in-effect would cause.
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
+
+  // Brighten the nav once the page has moved off the hero
   useEffect(() => {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  // While the drawer is open: lock the page, and give Escape an escape route
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setMenuOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [menuOpen]);
+
+  const renderLinks = () =>
+    NAV_LINKS.map(({ href, label }) => {
+      const isActive = href === pathname;
+      return (
+        <li key={href}>
+          <Link
+            href={href}
+            className={isActive ? 'active' : undefined}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {label}
+          </Link>
+        </li>
+      );
+    });
 
   return (
     <>
-      <nav className="navbar">
-        <Link href="/" className="logo">
-          <img src="/wizztech-logo2023-2024..png" alt="WizzTech Logo" className="nav-logo-img" />
-          <img src="/wizztech-logo-text-2023-2024.png" alt="WizzTech" className="nav-logo-text-img" />
+      <nav className={scrolled ? 'navbar scrolled' : 'navbar'}>
+        <Link href="/" className="logo" aria-label="WizzTech — pagina principală">
+          <Image
+            src="/wizztech-logo2023-2024.png"
+            alt=""
+            width={391}
+            height={575}
+            className="nav-logo-img"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <Image
+            src="/wizztech-logo-text-2023-2024.png"
+            alt=""
+            width={1846}
+            height={249}
+            className="nav-logo-text-img"
+            loading="eager"
+          />
         </Link>
 
-        <ul className="nav-links">
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} className={pathname === href ? 'active' : ''}>{label}</Link>
-            </li>
-          ))}
-        </ul>
+        <ul className="nav-links">{renderLinks()}</ul>
 
         <div className="nav-socials">
-          {socials.map(({ href, src, alt }) => (
-            <a key={alt} href={href} target="_blank" rel="noopener noreferrer">
-              <img src={src} alt={alt} />
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+              <Icon />
             </a>
           ))}
         </div>
 
         <button
+          ref={toggleRef}
+          type="button"
           className="nav-hamburger"
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? 'Închide meniul' : 'Deschide meniul'}
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(o => !o)}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen((open) => !open)}
         >
-          <span className="ham-line"></span>
-          <span className="ham-line"></span>
-          <span className="ham-line"></span>
+          <span className="ham-line" />
+          <span className="ham-line" />
+          <span className="ham-line" />
         </button>
       </nav>
 
-      <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
-        <ul>
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} className={pathname === href ? 'active' : ''}>{label}</Link>
-            </li>
+      {/* Closed state is `visibility: hidden` in CSS — keeps the slide transition
+          while still removing the links from the tab order. */}
+      <div id="mobile-menu" className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
+        <ul>{renderLinks()}</ul>
+        <div className="mobile-socials">
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+              <Icon />
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );

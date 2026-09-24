@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local Claude Code session artifact
+resume-session.txt
+
+# large archives — the unzipped copy lives in "WizzTech site/"
+*.zip
