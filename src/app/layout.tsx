@@ -22,6 +22,9 @@ const body = Atkinson_Hyperlegible_Next({
   display: 'swap',
 });
 
+/** Applies the saved theme before first paint (see ThemeToggle). */
+const THEME_SCRIPT = `try{if(localStorage.getItem('wizztech-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}`;
+
 export const metadata: Metadata = {
   title: {
     default: 'WizzTech | Echipa de robotică FTC din Timișoara',
@@ -48,7 +51,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ro" className={`${display.variable} ${body.variable}`}>
+    // suppressHydrationWarning: the theme script below sets data-theme before React hydrates
+    <html lang="ro" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <a href="#main" className="skip-link">Sari la conținut</a>
         <Navbar />

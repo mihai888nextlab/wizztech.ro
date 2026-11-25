@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 const NAV_LINKS = [
   { href: '/', label: 'Acasă' },
@@ -83,6 +84,7 @@ export default function Navbar() {
 
           <ul className="nav-links">{renderLinks()}</ul>
 
+          <ThemeToggle />
           <Link href="/sponsori#contact" className="btn nav-cta">Contact</Link>
 
           <button
