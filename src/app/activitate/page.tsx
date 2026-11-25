@@ -3,124 +3,84 @@ import Image from 'next/image';
 export const metadata = { title: 'Activitate' };
 
 const EVENTS = [
-  { date: 'Ediția 2026', name: 'WizzTour', description: 'Prin această caravană anuală, vizităm școli și licee din Timișoara și împrejurimi. Scopul nostru este de a promova educația STEM și robotica, inspirând tinerii din diverse medii să descopere tehnologia.', location: 'Timișoara' },
-  { date: '09.03.2026', name: 'Innovate Together', description: 'O serie de întâlniri începută alături de echipa Brickbot din Focșani. Discutăm cu diverse echipe despre FTC, organizare și idei din acest sezon, cu scopul de a întări comunitatea FIRST.', location: 'Online / Timișoara–Focșani' },
-  { date: '21.04.2026', name: 'World Creativity & Innovation Day', description: 'Am adus robotica mai aproape de elevii de clasa a IV-a din liceul nostru. Ghidați de noi, copiii au descoperit magia programării, transformând tehnologia dintr-o enigmă într-o joacă logică.', location: 'Liceul Teoretic "Grigore Moisil", Timișoara' },
-  { date: '29.04.2026', name: 'Hope for Tomorrow', description: 'Un eveniment caritabil organizat alături de Banca pentru Alimente Timișoara. Prin cele 9 activități interactive, am oferit copiilor o zi de neuitat, plină de distracție, zâmbete și fapte bune.', location: 'Casa Tineretului, Timișoara' },
-  { date: '16.05.2026', name: 'RoboBricks', description: 'O zi plină de tehnologie și creativitate în mall, realizată alături de Interact Club Timișoara. Copiii s-au jucat cu robotul, susținând totodată o cauză vitală: îngrijirea pacienților aflați în stare terminală.', location: 'Iulius Mall, Timișoara' },
-  { date: '01.06.2026', name: 'Șotron cu Roboți', description: 'De 1 Iunie, am transformat un joc clasic într-o aventură tehnologică! Într-un decor plin de culoare și jucării, copiii s-au distrat de minune făcând primii pași în fascinanta lume a roboticii.', location: 'Nest Parcul Copiilor, Timișoara' },
-  { date: '06.06.2026', name: 'Magic of FTC', description: 'WizzTech a creat un spațiu interactiv alături de echipele de robotică din Timișoara. Vizitatorii au descoperit universul STEM, au înțeles robotica și au trăit emoția competiției prin meciuri demonstrative FTC.', location: 'Iulius Mall, Timișoara' },
+  { date: '2026', name: 'WizzTour', description: 'Caravana noastră anuală prin școlile și liceele din Timișoara și împrejurimi. Prezentăm robotul și le arătăm elevilor cum arată un sezon FTC.', location: 'Timișoara' },
+  { date: '09.03.2026', name: 'Innovate Together', description: 'O serie de întâlniri pornită alături de echipa Brickbot din Focșani, în care discutăm cu alte echipe despre FTC, organizare și ideile sezonului.', location: 'Online, Timișoara–Focșani' },
+  { date: '21.04.2026', name: 'Ziua Creativității și Inovației', description: 'Elevii de clasa a IV-a din liceul nostru au programat primii lor roboți, ghidați de noi.', location: 'Liceul Teoretic „Grigore Moisil”' },
+  { date: '29.04.2026', name: 'Hope for Tomorrow', description: 'Eveniment caritabil organizat cu Banca pentru Alimente Timișoara: 9 activități interactive pentru copii.', location: 'Casa Tineretului, Timișoara' },
+  { date: '16.05.2026', name: 'RoboBricks', description: 'O zi de tehnologie în mall, alături de Interact Club Timișoara, pentru o cauză caritabilă: îngrijirea pacienților în stare terminală.', location: 'Iulius Mall, Timișoara' },
+  { date: '01.06.2026', name: 'Șotron cu roboți', description: 'De 1 Iunie am transformat un joc clasic într-o primă lecție de robotică pentru cei mici.', location: 'Nest Parcul Copiilor, Timișoara' },
+  { date: '06.06.2026', name: 'Magic of FTC', description: 'Spațiu interactiv construit cu echipele de robotică din Timișoara, cu meciuri demonstrative FTC pentru public.', location: 'Iulius Mall, Timișoara' },
 ];
 
-const PHOTOS = [
-  { src: '/2018.JPG', caption: '2017–2018 · Relic Recovery' },
-  { src: '/2019.JPG', caption: '2018–2019 · Rover Ruckus' },
-  { src: '/2020.JPG', caption: '2019–2020 · Skystone' },
-  { src: '/2021.JPG', caption: '2020–2021 · Ultimate Goal' },
-  { src: '/2022.JPG', caption: '2021–2022 · Freight Frenzy' },
-  { src: '/2023.JPG', caption: '2022–2023 · Powerplay' },
-  { src: '/2024.JPG', caption: '2023–2024 · Centerstage' },
-  { src: '/2025.JPG', caption: '2024–2025 · Into the Deep' },
-  { src: '/2026.JPEG', caption: '2025–2026 · Decode' },
+const SEASONS = [
+  { src: '/2018.JPG', years: '2017–2018', game: 'Relic Recovery' },
+  { src: '/2019.JPG', years: '2018–2019', game: 'Rover Ruckus' },
+  { src: '/2020.JPG', years: '2019–2020', game: 'Skystone' },
+  { src: '/2021.JPG', years: '2020–2021', game: 'Ultimate Goal' },
+  { src: '/2022.JPG', years: '2021–2022', game: 'Freight Frenzy' },
+  { src: '/2023.JPG', years: '2022–2023', game: 'Powerplay' },
+  { src: '/2024.JPG', years: '2023–2024', game: 'Centerstage' },
+  { src: '/2025.JPG', years: '2024–2025', game: 'Into the Deep' },
+  { src: '/2026.JPEG', years: '2025–2026', game: 'DECODE' },
 ];
-
-/* [Înlocuiește numerele de mai jos cu cifrele reale ale echipei] */
-const IMPACT = [
-  { num: '500+', label: 'Copii inspirați' },
-  { num: '15+', label: 'Școli & licee vizitate' },
-  { num: '20+', label: 'Evenimente de outreach' },
-  { num: '9', label: 'Sezoane FTC' },
-];
-
-const PinIcon = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-  </svg>
-);
 
 export default function ActivitatePage() {
   return (
     <>
-      {/* ── EVENIMENTE ── */}
-      <section id="events" className="section">
-        <p className="section-label reveal">01 — Outreach</p>
-        <h1 className="section-title reveal">
-          Evenimentele <span className="accent">noastre</span>
-        </h1>
-        <div className="section-divider reveal" />
-        <p className="section-lead reveal">
-          Robotica nu se oprește la competiții. Ducem pasiunea pentru STEM mai departe, în comunitate,
-          prin caravane, ateliere și evenimente caritabile.
+      <section className="wrap page-head">
+        <h1>Activitate</h1>
+        <p className="lead">
+          Robotica nu se oprește la competiții. Ducem STEM-ul în comunitate prin caravane, ateliere și
+          evenimente caritabile.
         </p>
-
-        <div className="impact-band">
-          {IMPACT.map((s, i) => (
-            <div
-              key={s.label}
-              className="glass-card impact-stat reveal"
-              style={{ '--i': i } as React.CSSProperties}
-            >
-              <div className="impact-num">{s.num}</div>
-              <div className="impact-label">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="events-list">
-          {EVENTS.map((e, i) => (
-            <article
-              key={e.name}
-              className="event-card reveal"
-              style={{ '--i': Math.min(i, 5) } as React.CSSProperties}
-            >
-              <div className="event-date-col">
-                <span className="event-date-badge">{e.date}</span>
-              </div>
-              <div className="event-body">
-                <h3 className="event-name">{e.name}</h3>
-                <p className="event-description">{e.description}</p>
-                <p className="event-location">
-                  <PinIcon />
-                  {e.location}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
+        {/* [Înlocuiește cu cifrele reale ale echipei] */}
+        <p className="impact-line">
+          Până acum: <b>500+</b> copii, <b>15+</b> școli vizitate și <b>20+</b> evenimente de outreach.
+        </p>
       </section>
 
-      {/* ── GALERIE ── */}
-      <section id="gallery" className="section">
-        <p className="section-label reveal">02 — Archive</p>
-        <h2 className="section-title reveal">
-          Galerie <span className="accent">pe sezoane</span>
-        </h2>
-        <div className="section-divider reveal" />
-        <p className="section-lead reveal">
-          Câte o imagine din fiecare sezon FTC în care am concurat, din 2017 până astăzi.
-        </p>
-
-        <ul className="gallery-grid">
-          {PHOTOS.map((p, i) => (
-            <li
-              key={p.caption}
-              className="gallery-item reveal"
-              style={{ '--i': i % 4 } as React.CSSProperties}
-            >
-              <div className="gallery-img-wrap">
-                <Image
-                  src={p.src}
-                  alt={`Echipa WizzTech în sezonul ${p.caption}`}
-                  fill
-                  loading="lazy"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="gallery-overlay" />
+      <section className="wrap" style={{ paddingBottom: 'var(--section-y)' }} aria-labelledby="ev-title">
+        <h2 id="ev-title" className="sr-only">Evenimente 2026</h2>
+        <ol className="events">
+          {EVENTS.map((e) => (
+            <li key={e.name} className="event">
+              <span className="date">{e.date}</span>
+              <div>
+                <h3>{e.name}</h3>
+                <p>{e.description}</p>
               </div>
-              <div className="gallery-caption">{p.caption}</div>
+              <p className="where">{e.location}</p>
             </li>
           ))}
-        </ul>
+        </ol>
+      </section>
+
+      <section className="block block-dark" id="galerie">
+        <div className="wrap">
+          <h2 className="title">Nouă sezoane</h2>
+          <p className="lead">Câte o fotografie din fiecare sezon FTC în care am concurat.</p>
+
+          <ol className="seasons">
+            {SEASONS.map((s) => (
+              <li key={s.years} className="season">
+                <figure>
+                  <div className="ph">
+                    <Image
+                      src={s.src}
+                      alt={`Echipa WizzTech în sezonul ${s.game}, ${s.years}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                  <figcaption>
+                    <span className="game">{s.game}</span>
+                    <span className="yr">{s.years}</span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
     </>
   );

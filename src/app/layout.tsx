@@ -1,43 +1,40 @@
 import type { Metadata, Viewport } from 'next';
-import { Chakra_Petch, Oxanium } from 'next/font/google';
+import { Anybody, Atkinson_Hyperlegible_Next } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ParticleCanvas from '@/components/ParticleCanvas';
-import ScrollReveal from '@/components/ScrollReveal';
 
 /**
- * Both faces include `latin-ext` — required for Romanian ă / î / â / ș / ț.
- * (Orbitron, used previously, ships `latin` only and silently fell back to a
- * system font on every diacritic, e.g. "Stănescu", "Mureșan", "Cătăneț".)
- * Oxanium keeps the geometric sci-fi character the team's logo sets up.
+ * Both faces include `latin-ext` — required for Romanian ă / ș / ț.
+ * Anybody is loaded with its width axis: headings are set stretched (wdth 120–150),
+ * dates and data narrow (wdth 80–85). Atkinson Hyperlegible Next carries body text.
  */
-const display = Oxanium({
+const display = Anybody({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-orbitron',
+  axes: ['wdth'],
+  variable: '--font-anybody',
   display: 'swap',
 });
 
-const body = Chakra_Petch({
+const body = Atkinson_Hyperlegible_Next({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '700'],
-  variable: '--font-chakra',
+  variable: '--font-atkinson',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'WizzTech | Echipa de robotică',
+    default: 'WizzTech | Echipa de robotică FTC din Timișoara',
     template: '%s | WizzTech',
   },
   description:
-    'WizzTech — echipa de robotică FIRST Tech Challenge a Liceului Teoretic "Grigore Moisil", Timișoara. RO048 · #19094.',
+    'WizzTech este echipa de robotică FIRST Tech Challenge a Liceului Teoretic „Grigore Moisil” din Timișoara. RO048, #19094.',
   applicationName: 'WizzTech',
   keywords: ['WizzTech', 'FTC', 'FIRST Tech Challenge', 'robotică', 'Timișoara', 'Grigore Moisil', 'STEM'],
   openGraph: {
-    title: 'WizzTech | Echipa de robotică',
+    title: 'WizzTech | Echipa de robotică FTC din Timișoara',
     description:
-      'Echipa de robotică a Liceului Teoretic "Grigore Moisil", Timișoara. RO048 · #19094.',
+      'Echipa de robotică a Liceului Teoretic „Grigore Moisil” din Timișoara. RO048, #19094.',
     locale: 'ro_RO',
     type: 'website',
     siteName: 'WizzTech',
@@ -45,8 +42,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#100c28',
-  colorScheme: 'dark',
+  themeColor: '#e9f0f3',
+  colorScheme: 'light',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -54,8 +51,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ro" className={`${display.variable} ${body.variable}`}>
       <body>
         <a href="#main" className="skip-link">Sari la conținut</a>
-        <ParticleCanvas />
-        <ScrollReveal />
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
